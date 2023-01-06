@@ -1,4 +1,4 @@
-resource "aws_spot_instance_request" "rabbitmq" {
+resource "aws_spot_instance_request" "app" {
   count                  = var.instance_count
   ami                    = data.aws_ami.centos8.id
   instance_type          = var.instance_type
@@ -21,7 +21,7 @@ EOF
 
 resource "aws_ec2_tag" "name-tag" {
   count       = var.instance_count
-  resource_id = element(aws_spot_instance_request.rabbitmq.*.spot_instance_id, count.index)
+  resource_id = element(aws_spot_instance_request.app.*.spot_instance_id, count.index)
   key         = "Name"
   value       = "${var.env}-${var.component}"
 }
