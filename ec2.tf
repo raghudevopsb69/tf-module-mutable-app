@@ -21,6 +21,6 @@ resource "aws_ec2_tag" "name-tag" {
   count       = var.instance_count
   resource_id = element(aws_spot_instance_request.rabbitmq.*.spot_instance_id, count.index)
   key         = "Name"
-  value       = "${var.env}-${component}"
+  value       = "${var.env}-${var.component}"
 }
 
