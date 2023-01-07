@@ -8,13 +8,10 @@ resource "aws_launch_template" "launch-template" {
     market_type = "spot"
   }
 
-  user_data = <<EOF
-#!/bin/bash
-touch /opt/user-data.log
-id >>/opt/user-data.log
-labauto ansible
-ansible-pull -i localhost, -U https://github.com/raghudevopsb69/roboshop-ansible roboshop.yml -e ROLE_NAME=${var.component} -e ENV=${var.env} | tee -a /opt/user-data.log
-EOF
+  user_data = base64encode(templatefile("${path.module}/ansible-pull.sh", {
+    component = var.component
+    env       = var.env
+  }))
 }
 
 
