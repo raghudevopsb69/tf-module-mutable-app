@@ -22,6 +22,8 @@ resource "aws_autoscaling_group" "asg" {
   min_size            = var.min_size
   vpc_zone_identifier = local.app_subnets_ids
 
+  target_group_arns = [aws_lb_target_group.tg.arn]
+
   launch_template {
     id      = aws_launch_template.launch-template.id
     version = "$Latest"
