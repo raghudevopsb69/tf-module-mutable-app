@@ -30,3 +30,35 @@ resource "aws_iam_policy" "ssm-policy" {
   })
 }
 
+resource "aws_iam_role" "ec2-role" {
+  name = "${var.env}-ec2-${var.component}"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = ""
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+      },
+    ]
+  })
+
+  tags = {
+    tag-key = "${var.env}-ec2-${var.component}"
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "ssm-role-attach" {
+  role       = aws_iam_role.ec2-role.name
+  policy_arn = aws_iam_policy.ssm-policy.arn
+}
+
+resource "aws_iam_instance_profile" "ec2-instance-profile" {
+  name = "${var.env}-ec2-${var.component}"
+  role = aws_iam_role.ec2-role.name
+}
+
