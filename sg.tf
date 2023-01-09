@@ -8,7 +8,7 @@ resource "aws_security_group" "allow_app" {
     from_port   = var.app_port
     to_port     = var.app_port
     protocol    = "tcp"
-    cidr_blocks =
+    cidr_blocks = local.allow_app_access
   }
 
   ingress {
