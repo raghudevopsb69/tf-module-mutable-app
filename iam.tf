@@ -1,7 +1,7 @@
 resource "aws_iam_policy" "ssm-policy" {
-  name        = "aws_ssm_ro_to_ec2_${var.env}"
+  name        = "${var.env}-ssm-to-ec2-${var.component}"
   path        = "/"
-  description = "aws_ssm_ro_to_ec2_${var.env}"
+  description = "${var.env}-ssm-to-ec2-${var.component}"
 
   policy = jsonencode({
     "Version" : "2012-10-17",
