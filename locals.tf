@@ -5,7 +5,7 @@ locals {
   app_subnets_ids     = lookup(lookup(var.vpc, var.env, null), "app_subnets_ids", null)
   public_subnets_ids  = lookup(lookup(var.vpc, var.env, null), "public_subnets_ids", null)
 
-  allow_app_access = var.component == "frontend" ? local.public_subnets_ids : local.app_subnets_ids
+  allow_app_access = var.component == "frontend" ? local.public_subnets_cidr : local.app_subnets_cidr
 
 }
 
