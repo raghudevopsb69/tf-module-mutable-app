@@ -3,6 +3,6 @@ resource "aws_route53_record" "component" {
   name    = "${var.env}-${var.component}.${var.domain}"
   type    = "A"
   ttl     = 30
-  records = []
+  records = [local.dns_name]
 }
 
