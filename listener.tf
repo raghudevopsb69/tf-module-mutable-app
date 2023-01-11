@@ -1,5 +1,5 @@
 resource "aws_lb_listener" "listener" {
-  load_balancer_arn = local.lb_arn
+  load_balancer_arn = local.lb_arn[0]
   port              = "80"
   protocol          = "HTTP"
 
