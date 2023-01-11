@@ -7,10 +7,10 @@ locals {
 
   allow_app_access = var.component == "frontend" ? local.public_subnets_cidr : local.app_subnets_cidr
 
-  lb_arns = { for k, v in var.load_balancers : k => lookup(v.lb_arn, "arn", null) }
-  arn     = var.component == "frontend" ? local.lb_arns["public"] : local.lb_arns["private"]
+  alb_arn = { for k, v in var.load_balancers : k => lookup(v.alb, "arn", null) }
+  arn     = var.component == "frontend" ? local.alb_arn["public"] : local.alb_arn["private"]
 
-  lb_dns_names = { for k, v in var.load_balancers : k => lookup(v.dns_name, "arn", null) }
-  dns_name     = var.component == "frontend" ? local.lb_dns_names["public"] : local.lb_dns_names["private"]
+  alb_dns_name = { for k, v in var.load_balancers : k => lookup(v.alb, "dns_name", null) }
+  dns_name     = var.component == "frontend" ? local.alb_dns_name["public"] : local.alb_dns_name["private"]
 }
 
