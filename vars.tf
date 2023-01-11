@@ -9,3 +9,4 @@ variable "max_size" {}
 variable "min_size" {}
 variable "app_port" {}
 variable "load_balancers" {}
+variable "lb_rule_priority" {}

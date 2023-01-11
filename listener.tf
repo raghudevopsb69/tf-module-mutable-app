@@ -26,3 +26,27 @@ resource "aws_lb_listener" "listener_private" {
     }
   }
 }
+
+resource "aws_lb_listener_rule" "static" {
+  count        = var.component == "frontend" ? 0 : 1
+  listener_arn = aws_lb_listener.listener_private.arn
+  priority     = var.lb_rule_priority
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.static.arn
+  }
+
+  condition {
+    path_pattern {
+      values = ["/static/*"]
+    }
+  }
+
+  condition {
+    host_header {
+      values = ["example.com"]
+    }
+  }
+}
+
