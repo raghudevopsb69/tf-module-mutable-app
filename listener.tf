@@ -34,18 +34,13 @@ resource "aws_lb_listener_rule" "static" {
 
   action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.static.arn
+    target_group_arn = aws_lb_target_group.tg.arn
   }
 
-  condition {
-    path_pattern {
-      values = ["/static/*"]
-    }
-  }
 
   condition {
     host_header {
-      values = ["example.com"]
+      values = ["${var.env}-${var.component}.${var.domain}"]
     }
   }
 }
