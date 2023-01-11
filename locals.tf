@@ -9,7 +9,7 @@ locals {
 
   lb_arns = { for k, v in var.load_balancers : k => lookup(v.lb_arn, "arn", null) }
 
-  //lb_arn = var.component == "frontend" ? local.public_lb_arn : local.private_lb_arn
+  arn = var.component == "frontend" ? local.lb_arns["public"] : local.lb_arns["private"]
 
 }
 
