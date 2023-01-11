@@ -8,3 +8,4 @@ variable "desired_capacity" {}
 variable "max_size" {}
 variable "min_size" {}
 variable "app_port" {}
+variable "load_balancers" {}
