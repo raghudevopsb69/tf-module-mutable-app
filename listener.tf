@@ -1,5 +1,5 @@
 resource "aws_lb_listener" "listener" {
-  load_balancer_arn = aws_lb.front_end.arn
+  load_balancer_arn =
   port              = "80"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"

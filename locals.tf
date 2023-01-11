@@ -7,5 +7,7 @@ locals {
 
   allow_app_access = var.component == "frontend" ? local.public_subnets_cidr : local.app_subnets_cidr
 
+  public_lb_arn = lookup(lookup(var.load_balancers, "public", null), "arn", null)
+
 }
 
