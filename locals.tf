@@ -7,10 +7,9 @@ locals {
 
   allow_app_access = var.component == "frontend" ? local.public_subnets_cidr : local.app_subnets_cidr
 
-  public_lb_arn  = { for k, v in var.load_balancers : k => lookup(v.public, "arn", null) }
-  private_lb_arn = { for k, v in var.load_balancers : k => lookup(v.private, "arn", null) }
+  lb_arns = { for k, v in var.load_balancers : k => lookup(v.lb_arn, "arn", null) }
 
-  lb_arn = var.component == "frontend" ? local.public_lb_arn : local.private_lb_arn
+  //lb_arn = var.component == "frontend" ? local.public_lb_arn : local.private_lb_arn
 
 }
 
