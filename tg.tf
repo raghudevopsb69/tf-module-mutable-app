@@ -10,5 +10,6 @@ resource "aws_lb_target_group" "tg" {
     unhealthy_threshold = 2
     interval            = 5
     path                = "/health"
+    timeout             = 4
   }
 }
