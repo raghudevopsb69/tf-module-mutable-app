@@ -1,8 +1,11 @@
 resource "aws_lb_listener" "listener_public" {
   count             = var.component == "frontend" ? 1 : 0
   load_balancer_arn = local.arn
-  port              = "80"
-  protocol          = "HTTP"
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = var.acm_cert_arn
+
 
   default_action {
     type             = "forward"
